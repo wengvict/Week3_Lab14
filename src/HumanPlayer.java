@@ -4,11 +4,19 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public Roshambo generateRoshambo() {
-		System.out.print("Rock, paper, or scissors? (R/P/S): ");
-		Scanner scan = new Scanner(System.in);
-		String userInput = scan.next().toLowerCase();
 		Roshambo r = null;
-		scan.close();
+		return r;
+		
+	}
+
+	@Override
+	public Roshambo generateRoshambo(Scanner sc) {
+		String userInput;
+		System.out.print("Rock, paper, or scissors? (R/P/S): ");
+		sc.nextLine();
+		userInput = Validator.getRPS(sc);
+		userInput = userInput.toLowerCase();
+		Roshambo r = null;
 		switch(userInput) {
 		case "r":
 			r = Roshambo.ROCK;
@@ -19,9 +27,10 @@ public class HumanPlayer extends Player {
 		case "s":
 			r = Roshambo.SCISSORS;
 			break;
+		default:
+			r = null;
 		}
 		return r;
-		
 	}
 
 }

@@ -1,4 +1,4 @@
-
+import java.util.Scanner;
 
 public abstract class Player {
 	
@@ -22,6 +22,8 @@ public abstract class Player {
 	}
 	
 	//public abstract void generateRoshambo();
+	// overloaded to take scanner input
 	public abstract Roshambo generateRoshambo();
+	public abstract Roshambo generateRoshambo(Scanner sc);
 
 }

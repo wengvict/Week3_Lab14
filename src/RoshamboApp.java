@@ -1,11 +1,9 @@
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class RoshamboApp {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
-		// Scanner scanEnum = new Scanner(System.in);
 		String userChoice;
 		String userCont = "y";
 		Roshambo userRoll, computerRoll = null;
@@ -17,40 +15,33 @@ public class RoshamboApp {
 		Player user = new HumanPlayer();
 		user.setName(scan.next());
 
-		userChoice = Validator.getString(scan, "\nWould you like to play against TheJets or TheSharks? (j/s): ");
-
+		userChoice = Validator.getTeam(scan, "\nWould you like to play against TheJets or TheSharks? (j/s): ");
 		System.out.print("\n");
 
 		while(userCont.equalsIgnoreCase("y")) {
-		userRoll = user.generateRoshambo();
+		
+			if (userChoice.equals("j")) {
+				p = new PlayerAlwaysRock();
+				p.setName("TheJets");
+			} else if (userChoice.equals("s")) {
+				p = new PlayerRandom();
+				p.setName("TheSharks");
+			}
+			
+		userRoll = user.generateRoshambo(scan);
 		System.out.println("\n" + user.getName() + ": " + userRoll);
-
-		if (userChoice.equals("j")) {
-			p = new PlayerAlwaysRock();
-			p.setName("TheJets");
-		} else if (userChoice.equals("s")) {
-			p = new PlayerRandom();
-			p.setName("TheSharks");
-		}
 		
 		computerRoll = p.generateRoshambo();
 		System.out.println(p.getName() + ": " + computerRoll);
 
 		getWinner(user.getName(), p.getName(), userRoll, computerRoll);
 		
-		// keep playing loop that generates NoSuchElementException
-		// this means scanner is picking up something it shouldn't be
-		// method that takes user input for userCont is at bottom (in case you want to use boolean instead of string)
-		
-		//scan.nextLine();
-		System.out.println("Would you like to continue? (y/n): ");
-		System.out.println(scan.hasNext());
-		scan.nextLine();
-
-		userCont = scan.nextLine();	// attempted to debug and found this line is causing error
+		System.out.print("Would you like to continue? (y/n): ");
+		userCont = scan.next();
+		System.out.print("\n");
 
 		} 
-
+		System.out.println("Thanks for playing!");
 		scan.close();
 	}
 
@@ -68,26 +59,4 @@ public class RoshamboApp {
 		}
 		System.out.print("\n");
 	}
-
-	// returns userCont for the do/while or while loop
-//	public static boolean keepPlaying(Scanner sc, String prompt) {
-//		boolean b = false;
-//		System.out.print(prompt);
-//		String s = "";
-//		sc.nextLine();
-//		try {
-//		s = sc.next();
-//
-//		} catch(NoSuchElementException e) {
-//			System.out.println("Would you like to continue? (y/n): ");
-//		}
-//		
-//		if (s.equalsIgnoreCase("y")) {
-//			return true;
-//		} else {
-//			return false;
-//		}
-//		//return b;
-//		
-//	}
 }

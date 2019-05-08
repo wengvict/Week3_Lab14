@@ -12,7 +12,8 @@ public enum Roshambo {
 			return "Paper";
 		case SCISSORS:
 			return "Scissors";
+		default:
+			return "null";
 		}
-		return "";
 	}
 }
